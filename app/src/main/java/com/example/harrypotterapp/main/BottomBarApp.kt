@@ -36,9 +36,9 @@ fun BottomBarApp(
 
     NavigationBar(
         modifier = Modifier
-            .height(75.dp)
+            .height(80.dp)
             .fillMaxWidth(),
-        containerColor = bottomBar,
+        containerColor = Color.Black,
         tonalElevation = 0.dp
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -71,7 +71,7 @@ fun BottomBarApp(
                     restoreState = true
                 }},
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = selectedIcon,
+                    indicatorColor = Color.Gray,
                     unselectedIconColor = Color.Transparent
                 )
             )

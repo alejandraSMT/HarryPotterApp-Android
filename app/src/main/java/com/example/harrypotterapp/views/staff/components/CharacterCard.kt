@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -34,7 +35,7 @@ import coil.compose.AsyncImage
 import com.example.harrypotterapp.R
 import com.example.harrypotterapp.data.model.Character
 import com.example.harrypotterapp.ui.theme.backgroundColor
-import com.example.harrypotterapp.ui.theme.cardGeneral
+import com.example.harrypotterapp.ui.theme.listItemColor
 
 @Composable
 fun CharacterCard(
@@ -43,19 +44,20 @@ fun CharacterCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .fillMaxHeight(0.5f)
+            .padding(vertical = 7.dp)
             .background(Color.Transparent)
-            .padding(vertical = 12.dp)
             .clickable {
                        
             },
         colors = CardDefaults.cardColors(
-            containerColor = cardGeneral,
+            containerColor = listItemColor,
         ),
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(5.dp),
+                .padding(vertical = 5.dp, horizontal = 5.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.Start
         ){
@@ -68,13 +70,14 @@ fun CharacterCard(
                     model = staff.image!!,
                     contentDescription = "character image",
                     modifier = Modifier
-                        .size(width = 60.dp, height = 50.dp)
-                        .padding(horizontal = 7.dp)
+                        .size(width = 70.dp, height = 60.dp)
+                        .padding(horizontal = 5.dp)
                         .clip(shape = CircleShape),
                     contentScale = ContentScale.Crop,
                 )
 
                 Column(
+                    modifier = Modifier.padding(start = 5.dp) ,
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.Center
                 ) {

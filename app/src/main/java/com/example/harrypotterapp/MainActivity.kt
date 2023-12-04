@@ -23,9 +23,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.harrypotterapp.data.model.Character
 import com.example.harrypotterapp.data.HarryPoterrApiService
+import com.example.harrypotterapp.data.Wand
 import com.example.harrypotterapp.main.BottomBarApp
 import com.example.harrypotterapp.main.NavigationGraph
 import com.example.harrypotterapp.ui.theme.HarryPotterAppTheme
+import com.example.harrypotterapp.views.character.CharacterScreen
 import com.example.harrypotterapp.views.common.TopBarHPApp
 import com.example.harrypotterapp.views.houses.HousesHogwarts
 import com.example.harrypotterapp.views.spells.SpellsScreen
@@ -53,10 +55,22 @@ class MainActivity : ComponentActivity() {
 
                     var buttonsVisible = remember { mutableStateOf(true) }
 
+                    val character = Character(
+                        name = "Harry Potter",
+                        dateOfBirth = "31-07-1980",
+                        gender = "male",
+                        house = "gryffindor",
+                        species = "human",
+                        alive = true,
+                        patronus = "stag",
+                        image = "https://ik.imagekit.io/hpapi/harry.jpg",
+                        wand = Wand(wood = "holly", length = 11.0, core = "phoenix tail feather")
+                    )
+
                     Scaffold(
                         modifier = Modifier,
-                        topBar = { TopBarHPApp() },
-                        bottomBar = { BottomBarApp(
+                        bottomBar = {
+                            BottomBarApp(
                             navController = navController,
                             state = buttonsVisible
                         ) }
@@ -65,6 +79,7 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.padding(padding)
                         ) {
                             NavigationGraph(navController = navController)
+                            //CharacterScreen(character = character)
                         }
                     }
                 }

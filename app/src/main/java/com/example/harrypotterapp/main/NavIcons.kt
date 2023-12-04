@@ -1,9 +1,5 @@
 package com.example.harrypotterapp.main
 
-import android.graphics.drawable.Icon
-import android.media.Image
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
 import com.example.harrypotterapp.R
 
 sealed class NavIcons(
@@ -14,19 +10,19 @@ sealed class NavIcons(
     object Houses : NavIcons(
         route = "houses",
         title = "Houses",
-        icon = R.drawable.arrow
+        icon = R.drawable.houses_icon
     )
 
     object Staff : NavIcons(
         route = "staff",
         title = "Staff",
-        icon = R.drawable.arrow
+        icon = R.drawable.staff_icon
     )
 
     object Spells : NavIcons(
         route = "spells",
         title = "Spells",
-        icon = R.drawable.arrow
+        icon = R.drawable.spells_icon
     )
 
 

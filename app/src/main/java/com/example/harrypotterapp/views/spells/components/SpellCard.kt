@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.harrypotterapp.data.model.Spell
-import com.example.harrypotterapp.ui.theme.cardGeneral
+import com.example.harrypotterapp.ui.theme.listItemColor
 
 @Composable
 fun SpellCard(
@@ -24,9 +24,9 @@ fun SpellCard(
 ) {
     Card (
         modifier = Modifier
-            .padding(10.dp)
+            .padding(vertical = 10.dp)
             .fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = cardGeneral)
+        colors = CardDefaults.cardColors(containerColor = listItemColor)
     ){
         Column(
             modifier = Modifier

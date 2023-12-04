@@ -23,15 +23,20 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 30.sp
     ),
+    headlineMedium = TextStyle(
+        fontFamily = rosarivo,
+        fontWeight = FontWeight.Normal,
+        fontSize = 20.sp
+    ),
     bodySmall = TextStyle(
         fontFamily = rosarivo,
         fontWeight = FontWeight.Normal,
-        fontSize = 17.sp
+        fontSize = 15.sp
     ),
     labelSmall = TextStyle(
         fontFamily = rosarivo,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
+        fontSize = 10.sp
     )
     /* Other default text styles to override
     titleLarge = TextStyle(
