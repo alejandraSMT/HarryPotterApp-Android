@@ -7,7 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -23,15 +22,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.harrypotterapp.data.model.Character
 import com.example.harrypotterapp.data.HarryPoterrApiService
-import com.example.harrypotterapp.data.Wand
+import com.example.harrypotterapp.data.model.Wand
 import com.example.harrypotterapp.main.BottomBarApp
 import com.example.harrypotterapp.main.NavigationGraph
 import com.example.harrypotterapp.ui.theme.HarryPotterAppTheme
-import com.example.harrypotterapp.views.character.CharacterScreen
-import com.example.harrypotterapp.views.common.TopBarHPApp
-import com.example.harrypotterapp.views.houses.HousesHogwarts
-import com.example.harrypotterapp.views.spells.SpellsScreen
-import com.example.harrypotterapp.views.staff.StaffHogwarts
+import com.example.harrypotterapp.ui.theme.gryffindorDarker
+import com.example.harrypotterapp.views.byHouses.CharactersInHouseScreen
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,9 +1,11 @@
 package com.example.harrypotterapp.views.staff.components
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -31,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.harrypotterapp.R
 import com.example.harrypotterapp.data.model.Character
@@ -39,7 +43,8 @@ import com.example.harrypotterapp.ui.theme.listItemColor
 
 @Composable
 fun CharacterCard(
-    staff : Character
+    staff : Character,
+    navController: NavController
 ) {
     Card(
         modifier = Modifier
@@ -48,7 +53,7 @@ fun CharacterCard(
             .padding(vertical = 7.dp)
             .background(Color.Transparent)
             .clickable {
-                       
+                navController.navigate("charInfo/${staff.id.toString()}")
             },
         colors = CardDefaults.cardColors(
             containerColor = listItemColor,
@@ -66,18 +71,26 @@ fun CharacterCard(
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                AsyncImage(
-                    model = staff.image!!,
-                    contentDescription = "character image",
-                    modifier = Modifier
-                        .size(width = 70.dp, height = 60.dp)
-                        .padding(horizontal = 5.dp)
-                        .clip(shape = CircleShape),
-                    contentScale = ContentScale.Crop,
-                )
+                if(staff.image == ""){
+                    Box(
+                        modifier = Modifier
+                            .clip(shape = CircleShape)
+                            .size(60.dp)
+                            .background(Color.Black)
+                    )
+                }else {
+                    AsyncImage(
+                        model = staff.image!!,
+                        contentDescription = "character image",
+                        modifier = Modifier
+                            .size(60.dp)
+                            .clip(shape = CircleShape),
+                        contentScale = ContentScale.Crop,
+                    )
+                }
 
                 Column(
-                    modifier = Modifier.padding(start = 5.dp) ,
+                    modifier = Modifier.padding(start = 10.dp) ,
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.Center
                 ) {
@@ -104,11 +117,4 @@ fun CharacterCard(
         }
     }
 
-}
-
-@Preview
-@Composable
-fun PreviewCharacterCard() {
-    val staff1 = Character(name = "Minerva McGonagall", species = "human", image = "https://ik.imagekit.io/hpapi/mcgonagall.jpg", house = "Gryffindor")
-    CharacterCard(staff1)
 }

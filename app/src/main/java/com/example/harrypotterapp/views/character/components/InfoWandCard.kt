@@ -57,7 +57,7 @@ fun InfoWandCard(
 
                 val wood = if(character.wand!!.wood == "") "Not specified" else character.wand.wood!!.replaceFirstChar { it.uppercase() }
                 val length = if(character.wand.length == null) "Not specified" else "${character.wand.length} inch(es)"
-                val core = if(character.wand.core == null) "Not specified" else character.wand.core!!.replaceFirstChar { it.uppercase() }
+                val core = if(character.wand.core == "") "Not specified" else character.wand.core!!.replaceFirstChar { it.uppercase() }
 
                 Column(
 

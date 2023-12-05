@@ -1,7 +1,5 @@
 package com.example.harrypotterapp.data.model
 
-import com.example.harrypotterapp.data.Wand
-
 data class Character (
 
     val actor: String?="",
@@ -9,7 +7,7 @@ data class Character (
     val alternateActors: List<Any>?= emptyList(),
     val alternateNames: List<String>?= emptyList(),
     val ancestry: String?="",
-    val dateOfBirth: String?="",
+    val dateOfBirth: String?=null,
     val eyeColour: String?="",
     val gender: String?="",
     val hairColour: String?="",
@@ -23,5 +21,5 @@ data class Character (
     val species: String?="",
     val wand: Wand?=null,
     val wizard: Boolean?=null,
-    val yearOfBirth: Int?=0
+    val yearOfBirth: Int?=null
 )

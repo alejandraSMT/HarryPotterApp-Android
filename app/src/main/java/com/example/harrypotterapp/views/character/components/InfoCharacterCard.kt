@@ -64,11 +64,13 @@ fun InfoCharacterCard(
                     style = MaterialTheme.typography.bodySmall
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                Text(
-                    text=if(character.alive!!) "Alive" else "Dead",
-                    color = Color.White,
-                    style = MaterialTheme.typography.bodySmall
-                )
+                if(character.alive != null){
+                    Text(
+                        text=if(character.alive) "Alive" else "Dead",
+                        color = Color.White,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
             }
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,

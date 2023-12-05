@@ -26,8 +26,10 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,23 +37,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.harrypotterapp.data.model.Spell
 import com.example.harrypotterapp.ui.theme.backgroundColor
+import com.example.harrypotterapp.views.common.LoadingProgress
 import com.example.harrypotterapp.views.common.TopBarHPApp
 import com.example.harrypotterapp.views.spells.components.SpellCard
+import com.example.harrypotterapp.views.spells.viewmodel.SpellsViewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SpellsScreen(
-
+    spellsViewModel: SpellsViewModel
 ) {
 
-    val spell1 = Spell(name = "Aberto", description = "Opens locked doors")
-    val spell2 = Spell(name = "Apparate", description = "A non-verbal transportation spell that allows a witch or wizard to instantly travel on the spot and appear at another location (disapparate is the opposite)")
-    val spells = listOf(spell1,spell2)
+    val coroutine = rememberCoroutineScope()
+
+    LaunchedEffect(key1 = true){
+        coroutine.launch {
+            spellsViewModel.getSpellsList()
+        }
+    }
 
     val searchText = remember{ mutableStateOf("") }
-    val active = remember {
-        mutableStateOf(false)
-    }
 
     Scaffold(
         topBar = {
@@ -61,71 +67,73 @@ fun SpellsScreen(
         Column(
             modifier = Modifier
                 .padding(top = 75.dp)
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TextField(
-                modifier = Modifier
-                    .fillMaxWidth(0.9f)
-                    .padding(bottom = 5.dp),
-                value = searchText.value,
-                onValueChange = {searchText.value = it},
-                leadingIcon = {
-                    IconButton(onClick = { /*TODO*/ }) {
+            if(!spellsViewModel.loaded.value){
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    LoadingProgress()
+                }
+            }else{
+                TextField(
+                    modifier = Modifier
+                        .fillMaxWidth(0.9f)
+                        .padding(bottom = 5.dp),
+                    value = searchText.value,
+                    onValueChange = { searchText.value = it },
+                    leadingIcon = {
                         Icon(
-                            imageVector =  Icons.Rounded.Search,
+                            imageVector = Icons.Rounded.Search,
                             contentDescription = "",
                             tint = Color.Gray
                         )
-                    }
-                },
-                trailingIcon = {
-                    IconButton(onClick = { searchText.value = "" }) {
-                        Icon(
-                            imageVector = Icons.Rounded.Close,
-                            contentDescription = "",
-                            tint = Color.LightGray
-                        )
-                    }
-                },
-                placeholder = { Text(text = "Search a spell...")},
-                shape = RoundedCornerShape(20.dp),
-                singleLine = true,
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
-                    focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black,
-                    focusedPlaceholderColor = Color.Gray,
-                    unfocusedPlaceholderColor = Color.Gray,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent
+                    },
+                    trailingIcon = {
+                        IconButton(onClick = { searchText.value = "" }) {
+                            Icon(
+                                imageVector = Icons.Rounded.Close,
+                                contentDescription = "",
+                                tint = Color.LightGray
+                            )
+                        }
+                    },
+                    placeholder = { Text(text = "Search a spell...") },
+                    shape = RoundedCornerShape(20.dp),
+                    singleLine = true,
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = Color.White,
+                        unfocusedContainerColor = Color.White,
+                        focusedTextColor = Color.Black,
+                        unfocusedTextColor = Color.Black,
+                        focusedPlaceholderColor = Color.Gray,
+                        unfocusedPlaceholderColor = Color.Gray,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
+                    )
                 )
-            )
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth(0.9f),
-                contentPadding = PaddingValues(bottom = 30.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                val filteredSpells =
-                    spells.filter { it.name!!.contains(searchText.value, true) }
-                item {
-                    filteredSpells.forEach { spell ->
-                        SpellCard(
-                            spell = spell
-                        )
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth(0.9f),
+                    contentPadding = PaddingValues(bottom = 30.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    val filteredSpells =
+                        spellsViewModel.spellsList.filter { it.name!!.contains(searchText.value, true) }
+                    item {
+                        filteredSpells.forEach { spell ->
+                            SpellCard(
+                                spell = spell
+                            )
+                        }
                     }
                 }
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun SpellsPreview() {
-    SpellsScreen()
 }

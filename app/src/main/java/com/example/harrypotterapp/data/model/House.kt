@@ -6,5 +6,6 @@ data class House (
     var name: String,
     var badge: Int,
     var firstColor: Color,
-    var secondColor: Color
+    var secondColor: Color,
+    var darkerColor: String
 )

@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -25,19 +26,26 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.harrypotterapp.R
 import com.example.harrypotterapp.data.model.House
+import com.example.harrypotterapp.ui.theme.gryffindorDarker
 import com.example.harrypotterapp.ui.theme.gryffindorFirst
 import com.example.harrypotterapp.ui.theme.gryffindorSecond
 import com.example.harrypotterapp.views.houses.HousesHogwarts
 
 @Composable
 fun CardHouse(
-    house: House
+    house: House,
+    navController: NavController
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .clickable {
+                navController.navigate("byHouse/${house.name}/${house.darkerColor}")
+            }
     ) {
         Card(
             modifier = Modifier
@@ -84,11 +92,4 @@ fun CardHouse(
             style = MaterialTheme.typography.bodySmall
         )
     }
-}
-
-@Preview
-@Composable
-fun PreviewHouseCard() {
-    val gryffindor = House(name = "Gryffindor", badge = R.drawable.gryffindor, firstColor = gryffindorFirst, secondColor = gryffindorSecond)
-    CardHouse(house = gryffindor)
 }

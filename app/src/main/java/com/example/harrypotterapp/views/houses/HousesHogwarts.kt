@@ -27,17 +27,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.harrypotterapp.R
 import com.example.harrypotterapp.data.model.House
 import com.example.harrypotterapp.ui.theme.backgroundColor
+import com.example.harrypotterapp.ui.theme.gryffindorDarker
 import com.example.harrypotterapp.ui.theme.gryffindorFirst
 import com.example.harrypotterapp.ui.theme.gryffindorSecond
+import com.example.harrypotterapp.ui.theme.hufflepuffDarker
 import com.example.harrypotterapp.ui.theme.hufflepuffFirst
 import com.example.harrypotterapp.ui.theme.hufflepuffSecond
+import com.example.harrypotterapp.ui.theme.ravenclawDarker
 import com.example.harrypotterapp.ui.theme.ravenclawFirst
 import com.example.harrypotterapp.ui.theme.ravenclawSecond
+import com.example.harrypotterapp.ui.theme.slytherinDarker
 import com.example.harrypotterapp.ui.theme.slytherinFirst
 import com.example.harrypotterapp.ui.theme.slytherinSecond
 import com.example.harrypotterapp.views.common.TopBarHPApp
@@ -46,12 +50,12 @@ import com.example.harrypotterapp.views.houses.components.CardHouse
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun HousesHogwarts(
-
+    navController: NavController
 ) {
-    val gryffindor = House(name = "Gryffindor", badge = R.drawable.gryffindor, firstColor = gryffindorFirst, secondColor = gryffindorSecond)
-    val slytherin = House(name = "Slytherin", badge = R.drawable.slytherin, firstColor = slytherinFirst, secondColor = slytherinSecond)
-    val hufflepuff = House(name = "Hufflepuff", badge = R.drawable.hufflepuf, firstColor = hufflepuffFirst, secondColor = hufflepuffSecond)
-    val ravenclaw = House(name = "Ravenclaw", badge = R.drawable.ravenclaw, firstColor = ravenclawFirst, secondColor = ravenclawSecond)
+    val gryffindor = House(name = "Gryffindor", badge = R.drawable.gryffindor, firstColor = gryffindorFirst, secondColor = gryffindorSecond, darkerColor = gryffindorDarker)
+    val slytherin = House(name = "Slytherin", badge = R.drawable.slytherin, firstColor = slytherinFirst, secondColor = slytherinSecond, darkerColor = slytherinDarker)
+    val hufflepuff = House(name = "Hufflepuff", badge = R.drawable.hufflepuf, firstColor = hufflepuffFirst, secondColor = hufflepuffSecond, darkerColor = hufflepuffDarker)
+    val ravenclaw = House(name = "Ravenclaw", badge = R.drawable.ravenclaw, firstColor = ravenclawFirst, secondColor = ravenclawSecond, darkerColor = ravenclawDarker)
     val houses = listOf(gryffindor,slytherin,hufflepuff,ravenclaw)
     
     val images = listOf(R.drawable.image1,R.drawable.image2,R.drawable.image3,R.drawable.image4)
@@ -123,16 +127,11 @@ fun HousesHogwarts(
             ) {
                 items(houses.size) {
                     CardHouse(
-                        house = houses[it]
+                        house = houses[it],
+                        navController = navController
                     )
                 }
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun Preview() {
-    HousesHogwarts()
 }
