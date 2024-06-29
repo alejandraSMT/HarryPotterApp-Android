@@ -18,6 +18,7 @@ class SpellsViewModel : ViewModel(
     fun getSpellsList(){
         try{
             loaded.value = false
+            spellsList.clear()
             viewModelScope.launch {
                 val networkingManager = NetworkingManager.getInstance()
                 val response = networkingManager.service.getSpells()
